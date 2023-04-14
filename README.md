@@ -3,6 +3,10 @@
   <a ><img width="1200px" height="auto" src="https://github.com/XinJingHao/Images/blob/main/asl/ASL.jpg"></a>
 </div>
 
+![Python](https://img.shields.io/badge/Python-blue)
+![DRL](https://img.shields.io/badge/DRL-blueviolet)
+![TrainingFramework](https://img.shields.io/badge/TrainingFramework-ff69b4)
+
 ## Preface
 This is the code of the ASL framework in paper [Color:train](xxxx). In addition, the Sparrow simulator can be found [here](https://github.com/XinJingHao/Sparrow-V0).
 
