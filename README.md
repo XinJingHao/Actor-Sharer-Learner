@@ -17,7 +17,7 @@ torch >= 1.13.0  (https://pytorch.org/)
 numpy >= 1.23.4  (https://numpy.org/)
 tensorboard >= 2.11.0  (https://pytorch.org/docs/stable/tensorboard.html)
 python >= 3.8.0 
-ubuntu >= 20.04.1 
+ubuntu >= 18.04.1 
 ```
 
 ## Quick Start:
