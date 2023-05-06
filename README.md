@@ -7,9 +7,6 @@
 ![DRL](https://img.shields.io/badge/DRL-blueviolet)
 ![TrainingFramework](https://img.shields.io/badge/TrainingFramework-ff69b4)
 
-## Preface
-This is the code of the ASL framework in paper [Color:train](xxxx). In addition, the Sparrow simulator can be found [here](https://github.com/XinJingHao/Sparrow-V0).
-
 ## Dependencies
 ```bash
 envpool >= 0.6.6  (https://envpool.readthedocs.io/en/latest/)
