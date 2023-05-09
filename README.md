@@ -22,7 +22,7 @@ After installation, you can use the ASL framework to train an Atari agent via:
 ```bash
 python main.py
 ```
-where the default envionment is **Alien** and the underlying DRL algorithm is **DDQN**. For more details about experiment setup, please check the **main.py**. The trianing curves of 57 Atari games are listed as follows.
+where the default envionment is **Alien** and the underlying DRL algorithm is **DDQN**. For more details about experiment setup, please check the **main.py**. The trianing curves of 57 [Atari](https://www.gymlibrary.dev/environments/atari/) games are listed as follows.
 
 <div align="center">
 <img width="100%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/asl/ss_e.svg">
