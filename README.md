@@ -34,12 +34,11 @@ where the default envionment is **Alien** and the underlying DRL algorithm is **
 To cite this repository in publications:
 
 ```bibtex
-@misc{Sparrow_v0,
-  author = {Jinghao Xin},
-  title = {XXXXXXXXXXX},
-  year = {2023},
-  publisher = {XXXX},
-  journal = {XXX},
-  howpublished = {XXXX},
+@article{Color2023JinghaoXin,
+  title={Train a Real-world Local Path Planner in One Hour via Partially Decoupled Reinforcement Learning and Vectorized Diversity},
+  author={Jinghao Xin, Jinwoo Kim, Zhi Li, and Ning Li},
+  journal={arXiv preprint arXiv:2305.04180},
+  url={https://doi.org/10.48550/arXiv.2305.04180},
+  year={2023}
 }
 ```
