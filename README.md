@@ -4,8 +4,9 @@
 </div>
 
 ![Python](https://img.shields.io/badge/Python-blue)
+![Pytorch](https://img.shields.io/badge/Pytorch-ff69b4)
 ![DRL](https://img.shields.io/badge/DRL-blueviolet)
-![TrainingFramework](https://img.shields.io/badge/TrainingFramework-ff69b4)
+![TrainingFramework](https://img.shields.io/badge/TrainingFramework-9cf)
 
 ## Introduction
 The Actor-Sharer-Learner (ASL) is a highly efficient training framework for off-policy DRL algorithms, capable of enhancing sample efficiency, shortening training time, and improving final performance simultaneously. Detailly, the ASL framework employs a Vectorized Data Collection (VDC) mode to expedite data acquisition, decouples the data collection from model optimization by multithreading, and partially connects the two procedures by harnessing a Time Feedback Mechanism (TFM) to evade data underuse or overuse.
