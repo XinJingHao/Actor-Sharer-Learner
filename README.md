@@ -48,7 +48,7 @@ To cite this repository in publications:
 ```
 
 ## Maintenance History
-+ 2023.6.20
++ 2023/6/20
   + `sample_core()` in `Sharer.py` is optimized, where
     + we use a more pytorch way to delete `self.ptr-1` in `ind`
     + for `Sharer.shared_data_cuda()`, the `ind` and `env_ind` are generated on `self.B_dvc` to run faster
