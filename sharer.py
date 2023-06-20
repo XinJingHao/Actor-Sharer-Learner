@@ -26,11 +26,11 @@ class shared_data_cpu():
 		self.should_download = False  # whether actor should download model
 
 		# init shared buffer
-		self.s = torch.zeros((self.max_size, opt.train_envs, 4, 84, 84), dtype=torch.uint8).to(self.B_dvc)
-		self.a = torch.zeros((self.max_size, opt.train_envs, 1), dtype=torch.int64).to(self.B_dvc)
-		self.r = torch.zeros((self.max_size, opt.train_envs, 1)).to(self.B_dvc)
-		self.dw = torch.zeros((self.max_size, opt.train_envs, 1), dtype=torch.bool).to(self.B_dvc)
-		self.ct = torch.zeros((self.max_size, opt.train_envs, 1), dtype=torch.bool).to(self.B_dvc)  # mark if s[ind] and s[ind+1] belong to the same traj.
+		self.s = torch.zeros((self.max_size, opt.train_envs, 4, 84, 84), dtype=torch.uint8, device=self.B_dvc)
+		self.a = torch.zeros((self.max_size, opt.train_envs, 1), dtype=torch.int64, device=self.B_dvc)
+		self.r = torch.zeros((self.max_size, opt.train_envs, 1), device=self.B_dvc)
+		self.dw = torch.zeros((self.max_size, opt.train_envs, 1), dtype=torch.bool, device=self.B_dvc)
+		self.ct = torch.zeros((self.max_size, opt.train_envs, 1), dtype=torch.bool, device=self.B_dvc)  # mark if s[ind] and s[ind+1] belong to the same traj.
 
 
 		# Tread lock (Naive Version)
@@ -69,8 +69,8 @@ class shared_data_cpu():
 			ind = torch.randint(low=0, high=self.ptr - 1, size=(self.batch_size,))  # sample from [0, ptr-2]
 		else:
 			ind = torch.randint(low=0, high=self.size - 1, size=(self.batch_size,))  # sample from [0, size-2]
-			if self.ptr - 1 in ind:
-				ind = np.delete(ind, np.where(ind == (self.ptr - 1)))  # delate ptr - 1 in [0, size-2]
+			if self.ptr - 1 in ind: ind = ind[ind != (self.ptr - 1)]  # delate ptr - 1 in [0, size-2]
+			#if self.ptr - 1 in ind: ind = np.delete(ind, np.where(ind == (self.ptr - 1)))  # delate ptr - 1 in [0, size-2]
 
 		env_ind = torch.randint(low=0, high=self.train_envs, size=(len(ind),)) # [l,h)
 		# [b, s_dim], #[b, 1], [b, 1], [b, s_dim], [b, 1], [b, 1]
@@ -184,13 +184,13 @@ class shared_data_cuda(shared_data_cpu):
 	def sample_core(self):
 		'''sample batch transitions, without thread lock'''
 		if not self.full:
-			ind = torch.randint(low=0, high=self.ptr - 1, size=(self.batch_size,))  # sample from [0, ptr-2]
+			ind = torch.randint(low=0, high=self.ptr - 1, size=(self.batch_size,), device=self.B_dvc)  # sample from [0, ptr-2]
 		else:
-			ind = torch.randint(low=0, high=self.size - 1, size=(self.batch_size,))  # sample from [0, size-2]
-			if self.ptr - 1 in ind:
-				ind = np.delete(ind, np.where(ind == (self.ptr - 1)))  # delate ptr - 1 in [0, size-2]
+			ind = torch.randint(low=0, high=self.size - 1, size=(self.batch_size,), device=self.B_dvc)  # sample from [0, size-2]
+			if self.ptr - 1 in ind: ind = ind[ind != (self.ptr - 1)]  # delate ptr - 1 in [0, size-2]
+			#if self.ptr - 1 in ind:ind = np.delete(ind, np.where(ind == (self.ptr - 1)))  # delate ptr - 1 in [0, size-2]
 
-		env_ind = torch.randint(low=0, high=self.train_envs, size=(len(ind),)) # [l,h)
+		env_ind = torch.randint(low=0, high=self.train_envs, size=(len(ind),), device=self.B_dvc) # [l,h)
 		# [b, s_dim], #[b, 1], [b, 1], [b, s_dim], [b, 1], [b, 1]; 已经在L_dvc上了，因为使用GPUbuffer时，B_dvc=L_dvc
 		return (self.s[ind,env_ind,:], self.a[ind,env_ind,:], self.r[ind,env_ind,:],
 				self.s[ind + 1,env_ind,:], self.dw[ind,env_ind,:], self.ct[ind, env_ind,:])
