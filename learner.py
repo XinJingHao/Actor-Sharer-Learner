@@ -35,7 +35,7 @@ class Learner:
 
 		self.time_feedback = opt.time_feedback
 		self.rho = opt.train_envs * opt.TPS / opt.batch_size
-		# 使用tf时，一次vstep = rho次bpstep。
+		# 使用tf时，进行一次vstep的同时，应进行rho次bpstep --- Eq.(2) of the Color paper
 		# 因此，一次vstep的时间应该约等于rho次bpstep的时间
 		# 当 t[vstep] < rho * t[bpstep]时，表明actor太快。这种情况下，每次vstep时，actor等待 (rho * t[bpstep] - t[vstep]) 秒
 		# 当 t[vstep] > rho * t[bpstep]时，表明learner太快。这种情况下，每次bpstep时，learner等待 (t[vstep] - t[bpstep])/rho 秒
